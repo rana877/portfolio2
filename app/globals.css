@@ -198,6 +198,16 @@
     }
   }
 
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+
   /* Added fade-in animations for project detail page */
   @keyframes fade-in {
     from {

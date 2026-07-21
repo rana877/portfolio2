@@ -7,12 +7,13 @@ import { useIsMobile } from "@/hooks/use-mobile"
 import { tokens } from "@/lib/design-tokens"
 
 // Section IDs the mascot cares about. Order = expected page flow.
-const SECTIONS = ["hero", "about", "skills", "projects", "services", "contact"] as const
+const SECTIONS = ["hero", "portrait", "about", "skills", "projects", "services", "contact"] as const
 type Section = typeof SECTIONS[number]
 
 // Position (fixed) + tilt per section
 const POSITIONS: Record<Section, { top: string; right: string; rotate: number; scale: number }> = {
   hero:     { top: "18%", right: "6%",  rotate: -4, scale: 1.00 },
+  portrait: { top: "40%", right: "4%",  rotate:  3, scale: 0.88 },
   about:    { top: "30%", right: "8%",  rotate:  2, scale: 0.95 },
   skills:   { top: "22%", right: "10%", rotate: -1, scale: 1.00 },
   projects: { top: "15%", right: "6%",  rotate:  0, scale: 1.05 },
@@ -24,6 +25,7 @@ const POSITIONS: Record<Section, { top: string; right: string; rotate: number; s
 // only pose (arm + mouth) changes. Avoids covering content on narrow screens.
 const POSITIONS_MOBILE: Record<Section, { top: string; right: string; rotate: number; scale: number }> = {
   hero:     { top: "auto", right: "4%", rotate: -4, scale: 0.55 },
+  portrait: { top: "auto", right: "4%", rotate:  3, scale: 0.50 },
   about:    { top: "auto", right: "4%", rotate:  2, scale: 0.55 },
   skills:   { top: "auto", right: "4%", rotate: -1, scale: 0.55 },
   projects: { top: "auto", right: "4%", rotate:  0, scale: 0.58 },
@@ -33,12 +35,13 @@ const POSITIONS_MOBILE: Record<Section, { top: string; right: string; rotate: nu
 
 // Right-arm rotation (deg) — animates the "gesture"
 const ARM_ROTATION: Record<Section, number> = {
-  hero: -40, about: -5, skills: -15, projects: -60, services: -20, contact: -50,
+  hero: -40, portrait: -20, about: -5, skills: -15, projects: -60, services: -20, contact: -50,
 }
 
 // Mouth path per section
 const MOUTHS: Record<Section, string> = {
   hero:     "M 55 68 Q 60 73 65 68",
+  portrait: "M 55 68 Q 60 72 65 68",
   about:    "M 55 70 L 65 70",
   skills:   "M 56 70 Q 60 72 64 70",
   projects: "M 54 68 Q 60 74 66 68",
