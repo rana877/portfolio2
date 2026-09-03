@@ -103,6 +103,17 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
           </div>
         )}
 
+        {/* Top Hero Image */}
+        {project.image && (
+          <div className="mt-10 overflow-hidden rounded-2xl border border-border/80 bg-card shadow-2xl">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-auto max-h-[600px] object-cover object-top"
+            />
+          </div>
+        )}
+
         {/* Meta strip */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-8 mt-12 border-y border-border max-w-4xl">
           {metaItems.map((item) => (
@@ -143,18 +154,24 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
 
         {/* Metrics */}
         {project.metrics && project.metrics.length > 0 && (
-          <div className="bg-card border border-border rounded-xl p-8 mt-16">
+          <div className="bg-card border border-border rounded-xl p-8 mt-16 overflow-hidden">
             <div className="mono-label">KEY METRICS</div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-6">
               {project.metrics.map((metric) => (
-                <div key={metric.label}>
+                <div key={metric.label} className="min-w-0">
                   <div
-                    className="font-sans font-semibold text-4xl md:text-5xl text-foreground"
+                    className={`font-sans font-semibold text-foreground break-words ${
+                      metric.value.length > 20
+                        ? "text-lg md:text-xl leading-snug"
+                        : metric.value.length > 12
+                        ? "text-xl md:text-2xl leading-tight"
+                        : "text-3xl md:text-4xl lg:text-5xl"
+                    }`}
                     style={{ letterSpacing: "-0.02em" }}
                   >
                     {metric.value}
                   </div>
-                  <div className="mt-1 font-mono text-xs uppercase tracking-widest text-mute-2">{metric.label}</div>
+                  <div className="mt-1 font-mono text-xs uppercase tracking-widest text-mute-2 break-words">{metric.label}</div>
                 </div>
               ))}
             </div>
@@ -185,12 +202,10 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
               {project.gallery.map((img, index) => (
                 <div key={img} className="bg-card border border-border rounded-xl overflow-hidden">
-                  <Image
+                  <img
                     src={img}
-                    width={800}
-                    height={500}
                     alt={`${project.title} — screenshot ${index + 1}`}
-                    className="w-full h-auto"
+                    className="w-full h-auto object-cover"
                   />
                 </div>
               ))}
